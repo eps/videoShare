@@ -1,0 +1,21 @@
+{
+  "name": "wewatch",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Herman Chan <hermchan89@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/hermchan/wewatch",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.4",
+    "angularfire": "^1.2.0"
+  }
+}
