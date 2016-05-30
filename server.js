@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // need to add this so that we can accept request payloads
 app.use(bodyParser.json());
 
-
 // set 'html' as the engine, using ejs's renderFile function
 
 app.set('view engine', 'html');
@@ -27,19 +26,7 @@ app.set('view engine', 'html');
  */
 
 app.get('/', function homepage (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
-});
-
-
-/*
- * JSON API Endpoints
- */
-
-
-// ALL OTHER ROUTES (ANGULAR HANDLES)
-// redirect all other paths to index
-app.get('*', function homepage (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(__dirname + '/public/views/index.html');
 });
 
 /**********

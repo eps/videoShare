@@ -1,33 +1,38 @@
-angular.module('wewatch', ['ngRoute'])
-       .config(config);
+/* CLIENT-SIDE JS
+ *
+ * This is your main angular file. Edit as you see fit.
+ *
+ */
 
-////////////
-// ROUTES //
-////////////
+angular
+  .module('wewatch', ['ngRoute', 'firebase'])
+  .config(config);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
-function config (  $routeProvider,   $locationProvider  )  {
+
+function config ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: '/templates/room-index.html',/* Include the path to the index template */
-      controller:  'RoomsIndexController',/* Which controller do you want the main page to use */
-      controllerAs: 'roomsIndexCtrl'/* What will you call the controller in the html? */
+      templateUrl: '/views/templates/room-index.html',
+      controllerAs: 'roomsIndexCtrl',
+      controller: 'RoomsIndexController'
     })
-
-    .when('/:id', {
-      templateUrl: '/templates/room-show.html',
-      controller: 'RoomsShowController',
-      controllerAs: 'roomsShowCtrl'
+    .when('/user', {
+      templateUrl: '/views/templates/user-index.html',
+      controllerAs: 'userIndexCtrl',
+      controller: 'UserIndexController'
     })
-    .otherwise ({
-      redirectTo: '/'
+    .when('/room/:roomId', {
+      templateUrl: '/views/templates/room-show.html',
+      controllerAs: 'roomsShowCtrl',
+      controller: 'RoomsShowController'
+    })
+    .otherwise({
+          redirectTo: '/'
     });
 
-
-  // this just makes it so our URLs don't have /#/ in them.
-  $locationProvider
-    .html5Mode({
+    $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
-    });
+  });
 }
