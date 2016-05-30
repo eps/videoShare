@@ -1,0 +1,19 @@
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Welcome to wewatch!</h1>
+    <p>Watch videos with your friends all synchronized at the same time!</p>
+  </div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+  <input id="room-name" type="text" value="" class="form-control" ng-model="data.roomName"/>
+  <a href="/user"><button ng-click="enterRoom()" class="btn btn-default">Create a Room</button></a>
+  <a href="/user"><button ng-click="enterRoom()" class="btn btn-default">Join a Room</button></a>
+
+  <strong>Room name: </strong>{{data.roomName}}
+
+  <!-- <div class="row text-center" id="room-name">
+    <a href="/" class="btn btn-default">Create a Room</a>
+    <a href="/" class="btn btn-default">Join a Room</a>
+  </div> -->
+</div>
