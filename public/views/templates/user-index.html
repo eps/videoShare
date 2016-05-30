@@ -1,0 +1,6 @@
+<legend>Create a username</legend>
+
+  <input id="user-name" type="text" value="" class="form-control" ng-model="data.userName" />
+  <a href="/room/:roomId"><button ng-click="userIndexCtrl.createUser()" class="btn btn-default">Create a User.</button></a>
+
+  <strong>User name here: </strong> {{data.userName}}
