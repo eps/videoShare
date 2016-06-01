@@ -1,0 +1,29 @@
+    <!-- anything typed in here is magically saved to our Firebase database! -->
+    <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
+    <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
+    <!-- <div ng-repeat="(key, room) in data"> -->
+    <!-- all changes from our Firebase database magically appear here! -->
+      <br>
+      <strong>Current Room :</strong> {{data.roomName}}
+      <br>
+      <strong>Current state :</strong> {{data.state}}
+      <br>
+      <strong>Current videoID :</strong> {{data.videoID}}
+
+
+
+  <div id="container">
+    <div class="col-md-6 col-md-offset-3">
+      <strong>Enter youtube link: </strong>
+      <input id="url" type="text" value="" class="form-control"/>
+      <button id="load-video" ng-click="loadVideo(url)">Load Video</button>
+    </div>
+    <div id="player"></div>
+    <!-- The <iframe> (and video player) will replace this <div> tag. -->
+    <!-- <iframe id="player" type="text/html" width="640" height="390"
+      src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+      frameborder="0"></iframe> -->
+  </div>
+</div>
+
+</html>
