@@ -29,6 +29,10 @@ app.get('/', function homepage (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
 });
 
+app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/public/views/index.html', { root: __dirname });
+});
 /**********
  * SERVER *
  **********/

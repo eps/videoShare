@@ -18,8 +18,8 @@ app.controller("UserIndexController", function($scope, $firebaseObject, $locatio
 
     var userId = $("#user-name").val();
     console.log('new user', userId);
-    userRef.set({'userName': userId});
-    $location.path('/room/' + roomId);
+    userRef.push({'userName': userId});
+  
   };
   //
   // userRef.child("roomName").on('value', function (snapshot) {

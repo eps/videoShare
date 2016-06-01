@@ -11,10 +11,9 @@
   <a href="" ng-href="/room/{{key}}"><button ng-click="enterRoom()" class="btn btn-default">Join a Room</button></a>
 
   <strong>Room name: </strong>
-  {{data}}
 
   <div ng-repeat="(key, room) in data">
     <a href="" ng-href="/room/{{key}}">{{room.roomName}}</a>
-
-</div>
+    {{key}}
+  </div>
 </div>
