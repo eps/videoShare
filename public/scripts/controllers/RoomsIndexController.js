@@ -1,5 +1,4 @@
 var app = angular.module("wewatch");
-
 app.controller("RoomsIndexController", function($scope, $firebaseObject, $document, $location) {
   var ref = new Firebase("https://burning-inferno-6004.firebaseio.com/room");
   var syncObject = $firebaseObject(ref);
@@ -23,8 +22,6 @@ app.controller("RoomsIndexController", function($scope, $firebaseObject, $docume
       console.log(childData);
     });
 
-  }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
   });
 
   $scope.enterRoom = function (){

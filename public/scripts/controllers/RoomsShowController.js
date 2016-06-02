@@ -1,7 +1,8 @@
 var app = angular.module("wewatch");
 var roomId;
 
-app.controller("RoomsShowController", function($scope, $firebaseObject, $routeParams, $document) {
+app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAuth", "$routeParams",
+  function($scope, $firebaseObject, $firebaseAuth, $routeParams) {
 
   var FBURL = "https://burning-inferno-6004.firebaseio.com/room/";
   var player;
@@ -10,7 +11,7 @@ app.controller("RoomsShowController", function($scope, $firebaseObject, $routePa
   var playerState = -1; //player has not started
   var playTime = 0;
   var roomId = $routeParams.roomId;
-  var ref = new Firebase(FBURL + roomId); // NEED TO BE ABLE TO INCLUDE UNIQUE ID
+  var ref = new Firebase(FBURL + roomId);
   console.log('runningfor roomid', roomId);
 
   // $scope.$watch('data.state', function newStateChanged(newValue) {
@@ -30,6 +31,41 @@ app.controller("RoomsShowController", function($scope, $firebaseObject, $routePa
   // click on `index.html` above to see it used in the DOM!
   // It's actually saved back in the firebase database in real-time.
   syncObject.$bindTo($scope, "data");
+
+  var auth = $firebaseAuth(ref);
+
+  $scope.login = function() {
+      $scope.authData = null;
+      $scope.error = null;
+
+      auth.$authAnonymously().then(function(authData) {
+        $scope.authData = authData;
+      }).catch(function(error) {
+        $scope.error = error;
+      });
+    };
+
+  var authData = ref.getAuth();
+  if (authData) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  } else {
+    console.log("User is logged out");
+  }
+
+  // pass param/username into authData
+  $scope.login = function() {
+    console.log('login button work');
+    ref.authAnonymously(function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+      }
+    }, {
+      remember: "sessionOnly"
+      }
+    );
+  };
 
   // need to write a function to get the specific videoID, currently getting whole url
   ref.child("videoID").on("value", function(snapshot) {
@@ -62,7 +98,7 @@ app.controller("RoomsShowController", function($scope, $firebaseObject, $routePa
       player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: "xRM99Srkvas",
+        videoId: videoID,
         events: {
           'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange
@@ -114,4 +150,59 @@ app.controller("RoomsShowController", function($scope, $firebaseObject, $routePa
       player.loadPlaylist({list:url,listType:"search",index:0,suggestedQuality:"small"});
     }
   };
-});
+
+}]);
+
+
+
+// app.controller('chatController', ['$scope','Message', function($scope,Message){
+//
+// 		$scope.name = "Coder01";
+//
+// 		$scope.messages= Message.all;
+//     $scope.user="Guest";
+//
+// 		$scope.messages= Message.all;
+//
+// 		$scope.insert = function(message){
+// 			Message.create(message);
+// 		};
+// }]);
+//
+// 	app.factory('Message', [function() {
+//
+// 	var messages = [{'name':'Pippo','text':'Hello'},
+// 					{'name':'Pluto','text':'Hello'},
+// 					{'name':'Pippo','text':'how are you ?'},
+// 					{'name':'Pluto','text':'fine thanks'},
+// 					{'name':'Pippo','text':'Bye'},
+// 					{'name':'Pluto','text':'Bye'}];
+//
+// 	var Message = {
+// 		all: messages
+// 	};
+//
+// 	return Message;
+//
+// }]);
+
+// app.factory('Message', function($scope, $firebaseArray) {
+// 	var ref = new Firebase('https://burning-inferno-6004.firebaseio.com/room/');
+//
+// 	var messages = ref.child('messages');
+//   console.log('messages working:', messages);
+//
+// 	var Message = {
+// 		all: messages,
+// 		create: function (message) {
+// 			return $scope.messages.$add(message);
+// 		},
+// 		get: function (messageId) {
+// 			return ref.child('messages').child(messageId).$firebaseArray();
+// 		},
+// 		delete: function (message) {
+// 			return $scope.messages.remove(message);
+// 		}
+// 	};
+// 	return Message;
+// });

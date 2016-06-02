@@ -1,7 +1,7 @@
 var app = angular.module("wewatch");
 
 app.controller("UserIndexController", function($scope, $firebaseObject, $location) {
-  var userRef = new Firebase("https://burning-inferno-6004.firebaseio.com/users");
+  var userRef = new Firebase("https://burning-inferno-6004.firebaseio.com/");
   var syncObject = $firebaseObject(userRef);
 
   // synchronize the object with a three-way data binding
@@ -19,7 +19,7 @@ app.controller("UserIndexController", function($scope, $firebaseObject, $locatio
     var userId = $("#user-name").val();
     console.log('new user', userId);
     userRef.push({'userName': userId});
-  
+
   };
   //
   // userRef.child("roomName").on('value', function (snapshot) {

@@ -1,7 +1,8 @@
 <legend>Create a username</legend>
 
-
-<div ng-model="data">
-  <input id="user-name" type="text" value="" class="form-control"/>
-  <a href="" ng-href="/room/{{$id}}"><button ng-click="userIndexCtrl.createUser()" class="btn btn-default">Create a User</button></a>
+<div class="col-md-4 col-md-offset-4">
+  <div ng-model="data">
+    <input id="user-name" type="text" value="" class="form-control"/>
+    <a href="" ng-href="/room/{{key}}"><button ng-click="userIndexCtrl.createUser()" class="btn btn-default">Create a User</button></a>
+  </div>
 </div>

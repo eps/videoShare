@@ -7,13 +7,11 @@
 
 <div class="col-md-6 col-md-offset-3">
   <input id="room-name" type="text" value="" class="form-control"/>
-  <a href="" ng-href="/room/{{key}}"><button ng-click="enterRoom()" class="btn btn-default">Create a Room</button></a>
-  <a href="" ng-href="/room/{{key}}"><button ng-click="enterRoom()" class="btn btn-default">Join a Room</button></a>
+  <a href="" ng-href="/user"><button ng-click="enterRoom()" class="btn btn-default">Create a Room</button></a>
+  <a href="" ng-href="/user"><button ng-click="enterRoom()" class="btn btn-default">Join a Room</button></a>
 
-  <strong>Room name: </strong>
-
-  <div ng-repeat="(key, room) in data">
-    <a href="" ng-href="/room/{{key}}">{{room.roomName}}</a>
+<div class="card" ng-repeat="(key, room) in data">
+    <span><strong>Room name: </strong><a href="" ng-href="/room/{{key}}">{{room.roomName}}</a></span>
     {{key}}
   </div>
 </div>

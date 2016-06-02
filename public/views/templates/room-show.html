@@ -1,3 +1,8 @@
+<div class="panel">
+  <div class="col-md-6 col-md-offset-3">
+    <button ng-click="login()">Create an Anonymous Account</button>
+    <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
+    <p ng-if="error">Error: <strong>{{ error }}</strong></p>
     <!-- anything typed in here is magically saved to our Firebase database! -->
     <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
     <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
@@ -26,4 +31,58 @@
   </div>
 </div>
 
+
+<!-- <div ng-controller="chatController"> -->
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Online Users <span class="badge pull-right" id="userCount"></span></h3>
+      </div>
+      <div class="panel-body">
+        <div class="nano">
+          <div class="content">
+            <div class="list-group" id="userList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-3 pull-right">
+      <div class="panel panel-default">
+        <div class="panel-heading">Chat</div>
+        <div class="panel-body">
+          <div class="nano">
+            <div class="content">
+              <div class="list-group" id="chatList"></div>
+              <ul>
+                <li ng-repeat="message in messages">
+               <strong>{{message.name}}:</strong>{{message.text}}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <form>
+            <div class="panel-footer">
+                <p>Name : <input type="text" ng-model="newmessage.user"></p>
+                <p>Message :<input type="text" id="chatInput" ng-model="newmessage.text"></p>
+                <button ng-click="insert(newmessage)">Send</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!--
+  <div ng-controller="chatController">
+  <ul>
+    <li ng-repeat="message in messages">
+	 {{message.text}}
+    </li>
+  </ul>
+</div> -->
 </html>
