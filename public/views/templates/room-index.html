@@ -10,8 +10,13 @@
   <a href="" ng-href="/user"><button ng-click="enterRoom()" class="btn btn-default">Create a Room</button></a>
   <a href="" ng-href="/user"><button ng-click="enterRoom()" class="btn btn-default">Join a Room</button></a>
 
-<div class="card" ng-repeat="(key, room) in data">
-    <span><strong>Room name: </strong><a href="" ng-href="/room/{{key}}">{{room.roomName}}</a></span>
-    {{key}}
-  </div>
+</div>
+<div class="col-md-3 pull-right">
+  <div class="panel panel-default">
+    <div class="panel-heading">Rooms</div>
+    <div class="panel-body">
+      <div ng-repeat="(key, room) in data">
+        <a href="" ng-href="/room/{{key}}">{{room.roomName}}</a>
+      </div>
+    </div>
 </div>

@@ -1,8 +1,8 @@
 var app = angular.module("wewatch");
 var roomId;
 
-app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAuth", "$routeParams",
-  function($scope, $firebaseObject, $firebaseAuth, $routeParams) {
+app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAuth", "$routeParams", "$firebaseArray",
+  function($scope, $firebaseObject, $firebaseAuth, $routeParams, $firebaseArray) {
 
   var FBURL = "https://burning-inferno-6004.firebaseio.com/room/";
   var player;
@@ -32,40 +32,44 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   // It's actually saved back in the firebase database in real-time.
   syncObject.$bindTo($scope, "data");
 
+  $scope.messages = $firebaseObject(ref);
+  // add new items to the array
+  // the message is automatically added to our Firebase database!
+  $scope.addMessage = function(messages) {
+    console.log('adding new message', $scope.messages);
+    ref.push({username: $scope.name,text: $scope.newMessageText});
+  };
+
   var auth = $firebaseAuth(ref);
 
   $scope.login = function() {
-      $scope.authData = null;
-      $scope.error = null;
+    $scope.authData = null;
+    $scope.error = null;
 
-      auth.$authAnonymously().then(function(authData) {
-        $scope.authData = authData;
-      }).catch(function(error) {
-        $scope.error = error;
-      });
-    };
+    auth.$authAnonymously().then(function(authData) {
+      $scope.authData = authData;
+      console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    }).catch(function(error) {
+      $scope.error = error;
+      console.log("User is logged out");
+    });
+  };
 
-  var authData = ref.getAuth();
-  if (authData) {
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
-  } else {
-    console.log("User is logged out");
-  }
 
   // pass param/username into authData
-  $scope.login = function() {
-    console.log('login button work');
-    ref.authAnonymously(function(error, authData) {
-      if (error) {
-        console.log("Login Failed!", error);
-      } else {
-        console.log("Authenticated successfully with payload:", authData);
-      }
-    }, {
-      remember: "sessionOnly"
-      }
-    );
-  };
+  // $scope.login = function() {
+  //   console.log('login button work');
+  //   ref.authAnonymously(function(error, authData) {
+  //     if (error) {
+  //       console.log("Login Failed!", error);
+  //     } else {
+  //       console.log("Authenticated successfully with payload:", authData);
+  //     }
+  //   }, {
+  //     remember: "sessionOnly"
+  //     }
+  //   );
+  // };
 
   // need to write a function to get the specific videoID, currently getting whole url
   ref.child("videoID").on("value", function(snapshot) {
@@ -150,59 +154,4 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
       player.loadPlaylist({list:url,listType:"search",index:0,suggestedQuality:"small"});
     }
   };
-
 }]);
-
-
-
-// app.controller('chatController', ['$scope','Message', function($scope,Message){
-//
-// 		$scope.name = "Coder01";
-//
-// 		$scope.messages= Message.all;
-//     $scope.user="Guest";
-//
-// 		$scope.messages= Message.all;
-//
-// 		$scope.insert = function(message){
-// 			Message.create(message);
-// 		};
-// }]);
-//
-// 	app.factory('Message', [function() {
-//
-// 	var messages = [{'name':'Pippo','text':'Hello'},
-// 					{'name':'Pluto','text':'Hello'},
-// 					{'name':'Pippo','text':'how are you ?'},
-// 					{'name':'Pluto','text':'fine thanks'},
-// 					{'name':'Pippo','text':'Bye'},
-// 					{'name':'Pluto','text':'Bye'}];
-//
-// 	var Message = {
-// 		all: messages
-// 	};
-//
-// 	return Message;
-//
-// }]);
-
-// app.factory('Message', function($scope, $firebaseArray) {
-// 	var ref = new Firebase('https://burning-inferno-6004.firebaseio.com/room/');
-//
-// 	var messages = ref.child('messages');
-//   console.log('messages working:', messages);
-//
-// 	var Message = {
-// 		all: messages,
-// 		create: function (message) {
-// 			return $scope.messages.$add(message);
-// 		},
-// 		get: function (messageId) {
-// 			return ref.child('messages').child(messageId).$firebaseArray();
-// 		},
-// 		delete: function (message) {
-// 			return $scope.messages.remove(message);
-// 		}
-// 	};
-// 	return Message;
-// });

@@ -31,58 +31,42 @@
   </div>
 </div>
 
-
-<!-- <div ng-controller="chatController"> -->
-<div class="row">
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Online Users <span class="badge pull-right" id="userCount"></span></h3>
-      </div>
-      <div class="panel-body">
-        <div class="nano">
-          <div class="content">
-            <div class="list-group" id="userList"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="col-md-3 pull-right">
+  <div class="row">
+    <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading">Chat</div>
+        <div class="panel-heading">
+          <h3 class="panel-title">Online Users <span class="badge pull-right" id="userCount"></span></h3>
+        </div>
         <div class="panel-body">
           <div class="nano">
             <div class="content">
-              <div class="list-group" id="chatList"></div>
-              <ul>
-                <li ng-repeat="message in messages">
-               <strong>{{message.name}}:</strong>{{message.text}}
-                </li>
-              </ul>
+              <div class="list-group" id="userList"></div>
             </div>
           </div>
-          <form>
-            <div class="panel-footer">
-                <p>Name : <input type="text" ng-model="newmessage.user"></p>
-                <p>Message :<input type="text" id="chatInput" ng-model="newmessage.text"></p>
-                <button ng-click="insert(newmessage)">Send</button>
-            </div>
-          </form>
-
         </div>
       </div>
     </div>
-  </div>
-
-
+      <div class="col-md-3 pull-right">
+        <div class="panel panel-default">
+          <div class="panel-heading">Chat</div>
+            <ul>
+              <li ng-repeat="message in messages">
+                  <strong>{{message.username}}:</strong>{{message.text}}
+                <!-- edit a message -->
+                <input ng-model="message.text" ng-change="messages.$save(message)" />
+                <!-- delete a message -->
+                <button ng-click="messages.$remove(message)">x</button>
+              </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+          <form ng-submit="addMessage(messages)">
+            <input ng-model="name" placeholder="Enter a username">
+            <input ng-model="newMessageText" placeholder="Enter a message" />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
 </div>
-<!--
-  <div ng-controller="chatController">
-  <ul>
-    <li ng-repeat="message in messages">
-	 {{message.text}}
-    </li>
-  </ul>
-</div> -->
 </html>
