@@ -1,3 +1,5 @@
+
+<legend>You are curently in room {{data.roomName}}</legend>
 <div container="col-md-10 col-md-offset-1">
   <div class="row">
     <button class="btn btn-default pull-left"><a href="" ng-href="/">Back to Lobby</a></button>
@@ -12,6 +14,7 @@
     <!-- anything typed in here is magically saved to our Firebase database! -->
     <!-- <div ng-repeat="(key, room) in data"> -->
     <!-- all changes from our Firebase database magically appear here! -->
+
   <div class="section" id="video-area">
     <div class="col-md-6">
       <div class="row">
@@ -29,21 +32,28 @@
       <!-- <iframe id="player" type="text/html" width="640" height="390"
         src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
         frameborder="0"></iframe> -->
-  <div class="section" id="chat-area">
-    <div class="col-md-4 pull-right">
-      <div class="panel panel-default">
-        <div class="panel-heading">Chat</div>
-          <p ng-repeat="message in messages">
-            <strong>{{message.username}}: {{message.text}}
-            <hr>
-          </p>
+  <div class="col-md-4 pull-right">
+    <div class="chatContainer">
+      <div class="chatHeader">
+        <h3>Chat</h3>
       </div>
-      <div class="chat-box">
-        <form ng-submit="addMessage(messages)">
-          <input ng-model="name" placeholder="Enter a username..." class="form-control">
-          <input ng-model="newMessageText" placeholder="Say something..." class="form-control"/>
-          <button type="submit" class="btn btn-small btn-default">Send</button>
-        </form>
+          <!-- <div class="panel panel-default"> -->
+      <div class="chatMessages">
+        <p ng-repeat="message in messages">
+          <strong>{{message.username}}:</strong> {{message.text}}
+          <button ng-show="message.text" ng-click="messages.$remove(message)" class="pull-right">x</button>
+        </p>
+      </div>
+        <!-- </div> -->
+        <div class="chatBottom">
+          <form ng-submit="addMessage(messages)">
+            <strong><label for="name">Username:</label></strong>
+            <input ng-model="name" placeholder="Enter a username..." class="form-control">
+            <strong><label for="newMessageText">Message:</label></strong>
+            <input ng-model="newMessageText" placeholder="Say something..." value="" class="form-control"/>
+            <button type="submit" class="btn btn-small btn-default">Send</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

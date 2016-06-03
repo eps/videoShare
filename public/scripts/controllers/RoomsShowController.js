@@ -33,11 +33,10 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   syncObject.$bindTo($scope, "data");
 
   $scope.messages = $firebaseObject(ref);
-  // add new items to the array
-  // the message is automatically added to our Firebase database!
   $scope.addMessage = function(messages) {
     console.log('adding new message', $scope.messages);
     ref.push({username: $scope.name,text: $scope.newMessageText});
+    $scope.newMessageText = "";
   };
 
   var auth = $firebaseAuth(ref);
@@ -54,22 +53,6 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
       console.log("User is logged out");
     });
   };
-
-
-  // pass param/username into authData
-  // $scope.login = function() {
-  //   console.log('login button work');
-  //   ref.authAnonymously(function(error, authData) {
-  //     if (error) {
-  //       console.log("Login Failed!", error);
-  //     } else {
-  //       console.log("Authenticated successfully with payload:", authData);
-  //     }
-  //   }, {
-  //     remember: "sessionOnly"
-  //     }
-  //   );
-  // };
 
   ref.child("videoTime").on("value", function(snapshot) {
   playTime = snapshot.val();
