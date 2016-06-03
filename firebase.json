@@ -1,0 +1,9 @@
+{
+  "firebase": "burning-inferno-6004",
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "."
+  }
+}
