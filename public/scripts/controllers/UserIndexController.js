@@ -1,4 +1,4 @@
-var app = angular.module("wewatch");
+var app = angular.module("videoShare");
 
 app.controller("UserIndexController", function($scope, $firebaseObject, $location) {
   var userRef = new Firebase("https://burning-inferno-6004.firebaseio.com/");

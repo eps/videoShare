@@ -1,4 +1,4 @@
-var app = angular.module("wewatch");
+var app = angular.module("videoShare");
 var roomId;
 
 app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAuth", "$routeParams", "$firebaseArray",

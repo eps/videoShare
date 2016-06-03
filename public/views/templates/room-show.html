@@ -1,47 +1,41 @@
 <div container="col-md-10 col-md-offset-1">
-  <button class="btn btn-default"><a href="" ng-href="/">Back to Lobby</a></button>
-  <h1>DELETE MESSAGE BUTTON REMOVES ENTIRE ARRAY</H1>
-
-    <button ng-click="login()">Create an Anonymous Account</button>
+  <div class="row">
+    <button class="btn btn-default pull-left"><a href="" ng-href="/">Back to Lobby</a></button>
+    <div class="text-center" id="show-video">
+      <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
+      <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
+    </div>
+    <button class="btn btn-default pull-right" ng-click="login()">Create an Anonymous Account</button>
     <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
     <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+  </div>
     <!-- anything typed in here is magically saved to our Firebase database! -->
-    <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
-    <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
     <!-- <div ng-repeat="(key, room) in data"> -->
     <!-- all changes from our Firebase database magically appear here! -->
-    <div class="col-md-4 col-md-offset-4">
+  <div class="section" id="video-area">
+    <div class="col-md-6">
       <div class="row">
       <strong>Enter youtube link: </strong>
       <br>
         <input id="url" type="text" value="" class="form-control"/>
         <button id="load-video" ng-click="loadVideo(url)">Load Video</button>
       </div>
-    </div>
-    <div class="col-md-5 col-md-offset-1">
       <div class="row">
-      <div id="player"></div>
+        <div id="player"></div>
+      </div>
+    </div>
+  </div>
       <!-- The <iframe> (and video player) will replace this <div> tag. -->
       <!-- <iframe id="player" type="text/html" width="640" height="390"
         src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
         frameborder="0"></iframe> -->
-        <br>
-        <strong>Current Room :</strong> {{data.roomName}}
-        <br>
-        <strong>Current state :</strong> {{data.state}}
-        <br>
-        <strong>Current videoID :</strong> {{data.videoID}}
-      </div>
-    </div>
-  </div>
-
-
-
+  <div class="section" id="chat-area">
     <div class="col-md-4 pull-right">
       <div class="panel panel-default">
         <div class="panel-heading">Chat</div>
           <p ng-repeat="message in messages">
-              <strong>{{message.username}} says {{message.text}}
+            <strong>{{message.username}}: {{message.text}}
+            <hr>
           </p>
       </div>
       <div class="chat-box">

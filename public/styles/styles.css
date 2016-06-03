@@ -1,5 +1,3 @@
-
-
 .jumbotron {
   background-image:  url('../images/watch.jpeg');
   background-size: cover;
@@ -18,4 +16,20 @@
 
 .jumbotron p {
   color: #e4e4e4;
+}
+
+.nav-brand {
+  padding-top: 20px;
+}
+
+.navbar {
+  margin-bottom:0px;
+}
+
+#video-area {
+  margin: 5px 0 0 100px;
+}
+
+#chat-area {
+  margin: 50px 100px;
 }

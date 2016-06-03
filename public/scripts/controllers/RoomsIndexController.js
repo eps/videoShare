@@ -1,4 +1,4 @@
-var app = angular.module("wewatch");
+var app = angular.module("videoShare");
 app.controller("RoomsIndexController", function($scope, $firebaseObject, $document, $location) {
   var ref = new Firebase("https://burning-inferno-6004.firebaseio.com/room");
   var syncObject = $firebaseObject(ref);

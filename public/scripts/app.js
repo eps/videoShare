@@ -5,7 +5,7 @@
  */
 
 angular
-  .module('wewatch', ['ngRoute', 'firebase'])
+  .module('videoShare', ['ngRoute', 'firebase'])
   .config(config);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
