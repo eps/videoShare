@@ -5,24 +5,24 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   function($scope, $firebaseObject, $firebaseAuth, $routeParams, $firebaseArray) {
 
   var FBURL = "https://burning-inferno-6004.firebaseio.com/room/";
-  var player;
   var videoID = "";
-  var done = false;
-  var playerState = -1; //player has not started
+  var player;
   var playTime = 0;
+  var playTimer;
+  var playerState = -1; //player has not started
   var roomId = $routeParams.roomId;
   var ref = new Firebase(FBURL + roomId);
   console.log('runningfor roomid', roomId);
 
-  // $scope.$watch('data.state', function newStateChanged(newValue) {
-  //   if (newValue == 1) {
-  //     console.log('watching video');
-  //     seek();
-  //   } else {
-  //     console.log('scope pausing video watch');
-  //     stop();
-  //   }
-  // });
+  $scope.$watch('data.state', function newStateChanged(newValue) {
+    if (newValue == 1) {
+      console.log('watching video');
+      seek();
+    } else {
+      console.log('scope pausing video watch');
+      stop();
+    }
+  });
 
   // download the data into a local object
   var syncObject = $firebaseObject(ref);
@@ -71,7 +71,14 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   //   );
   // };
 
-  // need to write a function to get the specific videoID, currently getting whole url
+  ref.child("videoTime").on("value", function(snapshot) {
+  playTime = snapshot.val();
+  console.log("new playtime:", playTime);
+    if (playerState !== 1) {
+      player.seekTo(playTime);
+    }
+  });
+
   ref.child("videoID").on("value", function(snapshot) {
     videoID = snapshot.val();
     $("#url").val("https://www.youtube.com/watch?v="+videoID);
@@ -98,15 +105,21 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
     console.log('fired youtube iframe');
     ref.child("state").once("value", function(state){
       playerState = state.val();
-      console.log('current video', playerState);
-      player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: videoID,
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        },
+      ref.child("videoTime").once("value", function(time){
+        playTime = time.val();
+        console.log(playTime, "getting playtime");
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: videoID,
+          playerVars : {
+            start: playTime
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          },
+        });
       });
     });
   }
@@ -125,6 +138,12 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   function stop() {
     console.log('stopped video');
     player.pauseVideo();
+  }
+
+  function updateTime() {
+    playTime = player.getCurrentTime();
+    console.log("PLAY TIME:", playTime);
+      ref.child("videoTime").set(playTime);
   }
 
   function seek() {
@@ -154,4 +173,7 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
       player.loadPlaylist({list:url,listType:"search",index:0,suggestedQuality:"small"});
     }
   };
+
+playTimer = setInterval(updateTime, 500);
+
 }]);
