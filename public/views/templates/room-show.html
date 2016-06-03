@@ -1,50 +1,48 @@
 
 <legend>You are curently in room {{data.roomName}}</legend>
-<div container="col-md-10 col-md-offset-1">
-  <div class="row">
-    <button class="btn btn-default pull-left"><a href="" ng-href="/">Back to Lobby</a></button>
-    <div class="text-center" id="show-video">
-      <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
-      <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
+  <div container="col-md-10 col-md-offset-1">
+    <div class="row">
+      <button class="btn btn-default pull-left"><a href="" ng-href="/">Back to Lobby</a></button>
+      <div class="text-center" id="show-video">
+        <input type="text" ng-model="data.videoID" placeholder="Enter youtube id" />
+        <button ng-click="loadVideo(url)" class="btn btn-default">Load Video</button></a>
+      </div>
+      <button class="btn btn-default pull-right" ng-click="login()">Create an Anonymous Account</button>
+      <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
+      <p ng-if="error">Error: <strong>{{ error }}</strong></p>
     </div>
-    <button class="btn btn-default pull-right" ng-click="login()">Create an Anonymous Account</button>
-    <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
-    <p ng-if="error">Error: <strong>{{ error }}</strong></p>
-  </div>
-    <!-- anything typed in here is magically saved to our Firebase database! -->
-    <!-- <div ng-repeat="(key, room) in data"> -->
-    <!-- all changes from our Firebase database magically appear here! -->
+      <!-- anything typed in here is magically saved to our Firebase database! -->
+      <!-- <div ng-repeat="(key, room) in data"> -->
+      <!-- all changes from our Firebase database magically appear here! -->
 
-  <div class="section" id="video-area">
-    <div class="col-md-6">
-      <div class="row">
-      <strong>Enter youtube link: </strong>
-      <br>
-        <input id="url" type="text" value="" class="form-control"/>
-        <button id="load-video" ng-click="loadVideo(url)">Load Video</button>
-      </div>
-      <div class="row">
-        <div id="player"></div>
+    <div class="section" id="video-area">
+      <div class="col-md-6">
+        <div class="row">
+        <strong>Enter youtube link: </strong>
+        <br>
+          <input id="url" type="text" value="" class="form-control"/>
+          <button id="load-video" ng-click="loadVideo(url)">Load Video</button>
+        </div>
+        <div class="row">
+          <div id="player"></div>
+        </div>
       </div>
     </div>
-  </div>
-      <!-- The <iframe> (and video player) will replace this <div> tag. -->
-      <!-- <iframe id="player" type="text/html" width="640" height="390"
-        src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
-        frameborder="0"></iframe> -->
-  <div class="col-md-4 pull-right">
-    <div class="chatContainer">
-      <div class="chatHeader">
-        <h3>Chat</h3>
-      </div>
-          <!-- <div class="panel panel-default"> -->
-      <div class="chatMessages">
-        <p ng-repeat="message in messages">
-          <strong>{{message.username}}:</strong> {{message.text}}
-          <button ng-show="message.text" ng-click="messages.$remove(message)" class="pull-right">x</button>
-        </p>
-      </div>
-        <!-- </div> -->
+        <!-- The <iframe> (and video player) will replace this <div> tag. -->
+        <!-- <iframe id="player" type="text/html" width="640" height="390"
+          src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+          frameborder="0"></iframe> -->
+    <div class="col-md-4 pull-right">
+      <div class="chatContainer">
+        <div class="chatHeader text-center">
+          <h3>Chat</h3>
+        </div>
+        <div class="chatMessages">
+          <p ng-repeat="message in messages">
+            <strong>{{message.username}}:</strong> {{message.text}}
+            <button ng-show="message.text" ng-click="messages.$remove(message)" class="pull-right">x</button>
+          </p>
+        </div>
         <div class="chatBottom">
           <form ng-submit="addMessage(messages)">
             <strong><label for="name">Username:</label></strong>

@@ -29,7 +29,51 @@
 #video-area {
   margin: 5px 0 0 100px;
 }
-
+/*
 #chat-area {
   margin: 50px 100px;
+}*/
+
+legend {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.chatContainer {
+  margin-top: 60px;
+  width: 400px;
+  height: 601px;
+  border: 2px solid #ddd;
+}
+
+.chatContainer > .chatHeader {
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chatContainer > .chatHeader h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  color: #333;
+}
+
+.chatContainer > .chatMessages {
+  height: 420px;
+  border-bottom: 1px solid #ddd;
+  overflow-y: scroll;
+}
+
+.chatContainer > .chatBottom {
+  padding:0px;
+  background: white;
+  border-radius: 1px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.chatContainer > .chatMessages > p {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
 }

@@ -35,7 +35,7 @@ app.controller("RoomsShowController", ["$scope", "$firebaseObject", "$firebaseAu
   $scope.messages = $firebaseObject(ref);
   $scope.addMessage = function(messages) {
     console.log('adding new message', $scope.messages);
-    ref.push({username: $scope.name,text: $scope.newMessageText});
+    ref.push({username: $scope.name.toLowerCase(),text: $scope.newMessageText});
     $scope.newMessageText = "";
   };
 

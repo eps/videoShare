@@ -2,7 +2,7 @@
 
 A website that allows people to watch YouTube videos all synchronized at the same time.
 
-<https://damp-harbor-89981.herokuapp.com/>
+<https://videoshare-.herokuapp.com/>
 
 ## Technologies Used
 
@@ -22,6 +22,5 @@ A website that allows people to watch YouTube videos all synchronized at the sam
 
 ## Planned Features
 
-*
-*
-*
+* Able to search videos on YouTube
+* Allow users to create a username

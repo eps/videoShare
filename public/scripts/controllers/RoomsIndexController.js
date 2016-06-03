@@ -12,16 +12,12 @@ app.controller("RoomsIndexController", function($scope, $firebaseObject, $docume
     console.log(snapshot.val());
     console.log(syncObject);
 
-    /************************************
-    *  LOOK AT ME
-    ************************************/
     snapshot.forEach(function(child) {
       console.log('key', child.key());
       var roomsId = child.key();
       var childData = child.val();
       console.log(childData);
     });
-
   });
 
   $scope.enterRoom = function (){
@@ -33,6 +29,5 @@ app.controller("RoomsIndexController", function($scope, $firebaseObject, $docume
     console.log('the new key for room: ', keyId);
     console.log('getting room id?', keyId);
 
-  // will set roomName(child) in firebase to the val of input
   };
 });
