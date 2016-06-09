@@ -2,7 +2,7 @@
 
 A website that allows people to watch YouTube videos all synchronized at the same time.
 
-<https://videoshare-.herokuapp.com/>
+<https://videoshare-16.herokuapp.com/>
 
 ## Technologies Used
 
